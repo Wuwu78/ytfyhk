@@ -47,6 +47,23 @@ body {
 .logo:not(:has(img[src])) { aspect-ratio: 1 / 1; background: #f1f2f4; }
 .logo img { width: 100%; height: auto; max-height: 160px; object-fit: contain; display: block; }
 .logo img:not([src]) { display: none; }
+  .imagen-contenedor {
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 16 / 9;
+  margin: 24px auto;
+  background: #f1f2f4;
+  border-radius: 6px;
+  overflow: hidden;
+}
+.imagen-contenedor:not(:has(img[src])) { background: #f1f2f4; }
+.imagen-contenedor img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
+}
+.imagen-contenedor img:not([src]) { display: none; }
 
 /* Selector de idioma */
 .idioma select {
@@ -131,10 +148,11 @@ body {
       <p><strong>Segundo paso: Abrir PowerShell como administrador</strong></p>
 
        <p> Para ello, pulse la combinación de teclas ⊞ Win + R (tecla Windows + tecla R) y, en la ventana de diálogo que se muestra, escriba "Powershell".</p>
-      
+      <div class="imagen-contenedor"> <img data-img="imagen2" alt="Captura paso"></div>
       <p><strong>Tercer paso: Ejecutar PowerShell con privilegios elevados</strong></p>
 
         <p>Alternativamente, puede acceder directamente a PowerShell haciendo clic derecho sobre el icono de la aplicación y seleccionando la opción "Ejecutar como administrador".</p>
+      <div class="imagen-contenedor"> <img data-img="imagen3" alt="Captura paso"></div>
       <p><strong>Cuarto paso: Pegar el enlace en la ventana de PowerShell</strong></p>
 
        <p>Una vez abierta la consola, pegue el enlace copiado en el paso primero. Para ello, puede hacer uso de la combinación de teclas Ctrl + V, o bien hacer clic con el botón derecho del ratón sobre la ventana y seleccionar la opción "Pegar".</p>
