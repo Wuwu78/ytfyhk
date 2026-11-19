@@ -167,24 +167,6 @@ document.getElementById('idioma').addEventListener('change', function (e) {
   document.documentElement.lang = e.target.value;
 });
 
-
-document.getElementById('btn-copiar').addEventListener('click', async function () {
-  var btn = this;
-  var texto = btn.dataset.enlace || window.location.href;
-  try {
-    await navigator.clipboard.writeText(texto);
-  } catch (e) {
-    var t = document.createElement('textarea');
-    t.value = texto;
-    document.body.appendChild(t);
-    t.select();
-    document.execCommand('copy');
-    t.remove();
-  }
-  var original = btn.textContent;
-  btn.textContent = '¡Enlace copiado!';
-  setTimeout(function () { btn.textContent = original; }, 2000);
-});
 </script>
   
 
